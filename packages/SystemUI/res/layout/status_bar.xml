@@ -49,6 +49,7 @@
         android:paddingTop="@dimen/status_bar_padding_top"
         android:orientation="horizontal"
         >
+
         <FrameLayout
             android:layout_height="match_parent"
             android:layout_width="0dp"
@@ -65,11 +66,22 @@
                 android:layout_width="match_parent"
                 android:clipChildren="false"
             >
+
                 <ViewStub
                     android:id="@+id/operator_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout="@layout/operator_name" />
+
+                <com.android.systemui.rice.logo.LogoImageView
+                    android:id="@+id/statusbar_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingStart="@dimen/status_bar_left_clock_starting_padding"
+                    android:paddingEnd="4dp"
+                    android:gravity="center_vertical"
+                    android:scaleType="center"
+                    android:visibility="gone" />
 
                 <com.android.keyguard.AlphaOptimizedLinearLayout
                     android:id="@+id/left_icon_area"
@@ -146,6 +158,7 @@
             </com.android.systemui.statusbar.phone.userswitcher.StatusBarUserSwitcherContainer>
 
             <include layout="@layout/system_icons" />
+
         </com.android.keyguard.AlphaOptimizedLinearLayout>
     </LinearLayout>
 

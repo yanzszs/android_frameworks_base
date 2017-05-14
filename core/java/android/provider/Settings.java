@@ -6026,6 +6026,26 @@ public final class Settings {
         public static final String SMART_PIXELS_ON_POWER_SAVE = "smart_pixels_on_power_save";
 
         /**
+         * Statusbar logo
+         * @hide
+         */
+        public static final String STATUS_BAR_LOGO = "status_bar_logo";
+
+        /**
+         * Position of Status bar logo
+         * 0 - Left (default)
+         * 1 - Right
+         * @hide
+         */
+        public static final String STATUS_BAR_LOGO_POSITION = "status_bar_logo_position";
+
+        /**
+         * Statusbar logo custom style
+         * @hide
+         */
+        public static final String STATUS_BAR_LOGO_STYLE = "status_bar_logo_style";
+
+        /**
          * Defines the screen-off animation to display
          * @hide
          */
@@ -6155,6 +6175,9 @@ public final class Settings {
 	    PRIVATE_SETTINGS.add(OMNIJAWS_WEATHER_ICON_PACK);
             PRIVATE_SETTINGS.add(POCKET_JUDGE);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_CHIP);
+            PRIVATE_SETTINGS.add(STATUS_BAR_LOGO);
+            PRIVATE_SETTINGS.add(STATUS_BAR_LOGO_POSITION);
+            PRIVATE_SETTINGS.add(STATUS_BAR_LOGO_STYLE);
         }
 
         /**
