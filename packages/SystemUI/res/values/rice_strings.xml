@@ -61,4 +61,7 @@
     <string name="screenrecord_lowquality_summary">For smaller file size</string>
     <string name="screenrecord_longer_timeout_switch_label">Bigger file size limit</string>
     <string name="screenrecord_longer_timeout_switch_summary">Limit recording size to 15 GB</string>
+
+    <!-- Name of the VoLTE/VoWiFi icon. -->
+    <string name="status_bar_ims">VoLTE/VoWiFi</string>
 </resources>
