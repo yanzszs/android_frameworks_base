@@ -93,5 +93,6 @@ public class SystemSettings {
         Settings.System.MEDIA_ARTWORK_BLUR_RADIUS,
         Settings.System.NETWORK_TRAFFIC_STATE,
         Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD,
+        Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL,
     };
 }
