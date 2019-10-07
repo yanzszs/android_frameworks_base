@@ -207,6 +207,7 @@ public class SecureSettings {
         Settings.Secure.STATUS_BAR_SHOW_VIBRATE_ICON,
         Settings.Secure.SECURE_LOCKSCREEN_QS_DISABLED,
         Settings.Secure.GESTURE_NAVBAR_LENGTH_MODE,
-        Settings.Secure.SHOW_WIFI_STANDARD_ICON
+        Settings.Secure.SHOW_WIFI_STANDARD_ICON,
+        Settings.Secure.DOZE_ON_CHARGE
     };
 }

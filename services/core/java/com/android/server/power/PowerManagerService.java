@@ -1586,6 +1586,9 @@ public final class PowerManagerService extends SystemService
                 mSmartChargingResumeLevelDefaultConfig, UserHandle.USER_CURRENT);
         mSmartChargingResetStats = Settings.System.getIntForUser(resolver,
                 Settings.System.SMART_CHARGING_RESET_STATS, 0, UserHandle.USER_CURRENT) == 1;
+        mAlwaysOnEnabled = mAmbientDisplayConfiguration.alwaysOnEnabledSetting(UserHandle.USER_CURRENT)
+            || (mAmbientDisplayConfiguration.alwaysOnChargingEnabledSetting(
+                    UserHandle.USER_CURRENT) && mIsPowered);
 
         if (mSupportsDoubleTapWakeConfig) {
             boolean doubleTapWakeEnabled = Settings.Secure.getIntForUser(resolver,
