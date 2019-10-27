@@ -136,4 +136,13 @@
     
     <!-- Whether the device supports Smart Pixels -->
     <java-symbol type="bool" name="config_supportSmartPixels" />
+
+    <!-- System Info -->
+    <java-symbol type="bool" name="config_supportSystemInfo" />
+    <java-symbol type="string" name="config_sysCPUTemp" />
+    <java-symbol type="string" name="config_sysBatteryTemp" />
+    <java-symbol type="string" name="config_sysGPUFreq" />
+    <java-symbol type="string" name="config_sysGPULoad" />
+    <java-symbol type="integer" name="config_sysCPUTempMultiplier" />
+    <java-symbol type="integer" name="config_sysBatteryTempMultiplier" />
 </resources>

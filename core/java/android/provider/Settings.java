@@ -5660,6 +5660,12 @@ public final class Settings {
         public static final String LESS_BORING_HEADS_UP = "less_boring_heads_up";
 
         /**
+         * Shows system info in QS OFF:0, CPU temp:1, battery temp:2, gpu freq: 3, gpu load: 4
+         * @hide
+         */
+        public static final String QS_SYSTEM_INFO = "qs_system_info";
+
+        /**
          * Whether to enable statusbar brightness control
          * @hide
          */
@@ -6178,6 +6184,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUS_BAR_LOGO);
             PRIVATE_SETTINGS.add(STATUS_BAR_LOGO_POSITION);
             PRIVATE_SETTINGS.add(STATUS_BAR_LOGO_STYLE);
+            PRIVATE_SETTINGS.add(QS_SYSTEM_INFO);
         }
 
         /**

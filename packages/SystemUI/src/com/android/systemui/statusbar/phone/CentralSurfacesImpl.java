@@ -182,6 +182,7 @@ import com.android.systemui.plugins.statusbar.NotificationSwipeActionHelper.Snoo
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.qs.QSFragment;
 import com.android.systemui.qs.QSPanelController;
+import com.android.systemui.qs.QuickStatusBarHeader;
 import com.android.systemui.recents.ScreenPinningRequest;
 import com.android.systemui.scrim.ScrimView;
 import com.android.systemui.settings.brightness.BrightnessSliderController;
@@ -550,6 +551,7 @@ public class CentralSurfacesImpl extends CoreStartable implements
 
     // settings
     private QSPanelController mQSPanelController;
+    private QuickStatusBarHeader mQuickStatusBarHeader;
 
     KeyguardIndicationController mKeyguardIndicationController;
 
@@ -1414,6 +1416,7 @@ public class CentralSurfacesImpl extends CoreStartable implements
                 if (qs instanceof QSFragment) {
                     mQSPanelController = ((QSFragment) qs).getQSPanelController();
                     ((QSFragment) qs).setBrightnessMirrorController(mBrightnessMirrorController);
+                    mQuickStatusBarHeader = ((QSFragment) qs).getQuickStatusBarHeader();
                 }
             });
         }
@@ -2179,6 +2182,7 @@ public class CentralSurfacesImpl extends CoreStartable implements
             mSystemSettings.registerContentObserverForUser(Settings.System.LESS_BORING_HEADS_UP, this, UserHandle.USER_ALL);
             mSystemSettings.registerContentObserverForUser(Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, this, UserHandle.USER_ALL);
             mSystemSettings.registerContentObserverForUser(Settings.System.RETICKER_STATUS, this, UserHandle.USER_ALL);
+            mSystemSettings.registerContentObserverForUser(Settings.System.QS_SYSTEM_INFO, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -2193,6 +2197,9 @@ public class CentralSurfacesImpl extends CoreStartable implements
                 case Settings.System.RETICKER_STATUS:
                     setUseLessBoringHeadsUp();
                     break;
+                case Settings.System.QS_SYSTEM_INFO:
+                    updateQSSystemInfo();
+                    break;
             }
         }
 
@@ -2201,6 +2208,7 @@ public class CentralSurfacesImpl extends CoreStartable implements
                 setUseLessBoringHeadsUp();
                 setBrightnessControl();
                 setRetickerStatus();
+                updateQSSystemInfo();
         });
     }
 
@@ -2222,6 +2230,14 @@ public class CentralSurfacesImpl extends CoreStartable implements
                     Settings.System.RETICKER_STATUS, 0, UserHandle.USER_CURRENT) == 1;
             mMainHandler.post(() -> {
                 mNotificationInterruptStateProvider.setUseReticker(reTicker);
+            });
+        }
+        
+        private void updateQSSystemInfo() {
+            final boolean qsSystemInfo = mSystemSettings.getIntForUser(
+                    Settings.System.QS_SYSTEM_INFO, 0, UserHandle.USER_CURRENT) == 1;
+            mMainHandler.post(() -> {
+                mQuickStatusBarHeader.updateSettings();
             });
         }
     }
