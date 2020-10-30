@@ -212,5 +212,6 @@ public class SystemSettingsValidators {
         VALIDATORS.put(System.MEDIA_ARTWORK_BLUR_RADIUS, new InclusiveFloatRangeValidator(1f, 25f));
         VALIDATORS.put(System.NETWORK_TRAFFIC_STATE, BOOLEAN_VALIDATOR);
         VALIDATORS.put(System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(System.SWIPE_TO_SCREENSHOT, BOOLEAN_VALIDATOR);
     }
 }
