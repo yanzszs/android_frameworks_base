@@ -27,7 +27,6 @@ LOCAL_REQUIRED_MODULES := \
 	DisplayCutoutEmulationNarrowOverlay \
 	DisplayCutoutEmulationTallOverlay \
 	DisplayCutoutEmulationWaterfallOverlay \
-	FontNotoSerifSourceOverlay \
 	NotchBarKillerOverlay \
 	NotchBarKillerLeftrOverlay \
 	DisplayCutoutEmulationWideOverlay \
