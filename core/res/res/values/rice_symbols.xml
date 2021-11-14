@@ -130,4 +130,7 @@
    <!-- Settings Restart -->
    <java-symbol type="string" name="settings_restart_title" />
    <java-symbol type="string" name="settings_restart_message" />
+   
+    <!-- Whether devices suports in-display fingerprint when screen is off -->
+    <java-symbol type="bool" name="config_supportsScreenOffUdfps" />
 </resources>
