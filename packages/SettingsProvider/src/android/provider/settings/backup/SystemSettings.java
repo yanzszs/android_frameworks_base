@@ -96,6 +96,7 @@ public class SystemSettings {
         Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL,
         Settings.System.STATUS_BAR_NOTIF_COUNT,
         Settings.System.USE_OLD_MOBILETYPE,
-        Settings.System.QS_PANEL_STYLE
+        Settings.System.QS_PANEL_STYLE,
+        Settings.System.ENABLE_RIPPLE_EFFECT
     };
 }
