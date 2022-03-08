@@ -39,6 +39,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -103,6 +104,9 @@ public class NavigationBarView extends FrameLayout implements TunerService.Tunab
 
     private static final String NAVIGATION_BAR_MENU_ARROW_KEYS =
             "lineagesystem:" + LineageSettings.System.NAVIGATION_BAR_MENU_ARROW_KEYS;
+
+    private static final String NAVBAR_STYLE =
+            "system:" + Settings.System.NAVBAR_STYLE;
 
     final static boolean ALTERNATE_CAR_MODE_UI = false;
 
@@ -1142,7 +1146,7 @@ public class NavigationBarView extends FrameLayout implements TunerService.Tunab
         requestApplyInsets();
         reorient();
         final TunerService tunerService = Dependency.get(TunerService.class);
-        tunerService.addTunable(this, NAVIGATION_BAR_MENU_ARROW_KEYS);
+        tunerService.addTunable(this, NAVIGATION_BAR_MENU_ARROW_KEYS, NAVBAR_STYLE);
         if (mRotationButtonController != null) {
             mRotationButtonController.registerListeners();
         }
@@ -1169,6 +1173,8 @@ public class NavigationBarView extends FrameLayout implements TunerService.Tunab
         if (NAVIGATION_BAR_MENU_ARROW_KEYS.equals(key)) {
             mShowCursorKeys = TunerService.parseIntegerSwitch(newValue, false);
             setNavigationIconHints(mNavigationIconHints);
+        } else if (NAVBAR_STYLE.equals(key)) {
+            reloadNavIcons();
         }
     }
 
