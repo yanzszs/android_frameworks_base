@@ -253,6 +253,7 @@ import com.android.systemui.wmshell.BubblesManager;
 import com.android.wm.shell.bubbles.Bubbles;
 import com.android.wm.shell.startingsurface.SplashscreenContentDrawer;
 import com.android.wm.shell.startingsurface.StartingSurface;
+import com.android.systemui.tuner.TunerService;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -281,7 +282,11 @@ import dagger.Lazy;
  */
 @SysUISingleton
 public class CentralSurfacesImpl extends CoreStartable implements
-        CentralSurfaces {
+        CentralSurfaces,
+        TunerService.Tunable {
+
+    private static final String QS_TRANSPARENCY =
+            "system:" + Settings.System.QS_TRANSPARENCY;
 
     private static final String BANNER_ACTION_CANCEL =
             "com.android.systemui.statusbar.banner_action_cancel";
@@ -556,6 +561,7 @@ public class CentralSurfacesImpl extends CoreStartable implements
     private final KeyguardUnlockAnimationController mKeyguardUnlockAnimationController;
     private final MessageRouter mMessageRouter;
     private final WallpaperManager mWallpaperManager;
+    private final TunerService mTunerService;
 
     private CentralSurfacesComponent mCentralSurfacesComponent;
 
@@ -808,6 +814,7 @@ public class CentralSurfacesImpl extends CoreStartable implements
             @Main MessageRouter messageRouter,
             WallpaperManager wallpaperManager,
             Optional<StartingSurface> startingSurfaceOptional,
+            TunerService tunerService,
             ActivityLaunchAnimator activityLaunchAnimator,
             NotifPipelineFlags notifPipelineFlags,
             InteractionJankMonitor jankMonitor,
@@ -905,6 +912,7 @@ public class CentralSurfacesImpl extends CoreStartable implements
         mWallpaperManager = wallpaperManager;
         mJankMonitor = jankMonitor;
         mDreamOverlayStateController = dreamOverlayStateController;
+        mTunerService = tunerService;
         mSysUiState = sysUiState;
 
         mLockscreenShadeTransitionController = lockscreenShadeTransitionController;
@@ -970,6 +978,8 @@ public class CentralSurfacesImpl extends CoreStartable implements
         mColorExtractor.addOnColorsChangedListener(mOnColorsChangedListener);
         mStatusBarStateController.addCallback(mStateListener,
                 SysuiStatusBarStateController.RANK_STATUS_BAR);
+
+        mTunerService.addTunable(this, QS_TRANSPARENCY);
 
         mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
 
@@ -4491,6 +4501,18 @@ public class CentralSurfacesImpl extends CoreStartable implements
     @Override
     public NotificationPanelViewController getPanelController() {
         return mNotificationPanelViewController;
+    }
+
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        switch (key) {
+            case QS_TRANSPARENCY:
+                mScrimController.setCustomScrimAlpha(
+                        TunerService.parseInteger(newValue, 100));
+                break;
+            default:
+                break;
+         }
     }
     // End Extra BaseStatusBarMethods.
 
