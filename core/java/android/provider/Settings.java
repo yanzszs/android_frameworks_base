@@ -5574,6 +5574,14 @@ public final class Settings {
          */
 	public static final String QS_SHOW_WEATHER_TEMP = "qs_show_weather_temp";
 
+        /**
+         * Whether to show Fahrenheit or Celsius with battery info on the
+         * lockscreen while charging
+         *
+         * @hide
+         */
+        public static final String LOCKSCREEN_BATTERY_INFO_TEMP_UNIT = "lockscreen_charge_temp_unit";
+
 	/**
          * @hide
          */
