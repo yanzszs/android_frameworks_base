@@ -5829,6 +5829,14 @@ public final class Settings {
         public static final String QS_TILE_LABEL_SIZE = "qs_tile_label_size";
 
         /**
+         * Statusbar clock background
+         * 0 - hide accented chip
+         * 1 - show accented chip (default)
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_CHIP ="statusbar_clock_chip";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -5951,6 +5959,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE_VENDOR_HINT);
 	    PRIVATE_SETTINGS.add(OMNIJAWS_WEATHER_ICON_PACK);
             PRIVATE_SETTINGS.add(POCKET_JUDGE);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_CHIP);
         }
 
         /**
