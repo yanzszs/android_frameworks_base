@@ -78,6 +78,7 @@ public class Clock extends TextView implements
     private static final String VISIBLE_BY_USER = "visible_by_user";
     private static final String SHOW_SECONDS = "show_seconds";
     private static final String VISIBILITY = "visibility";
+    private static final String QSHEADER = "qsheader";
 
     public static final String STATUS_BAR_CLOCK_SECONDS =
             "system:" + Settings.System.STATUS_BAR_CLOCK_SECONDS;
@@ -91,6 +92,14 @@ public class Clock extends TextView implements
             "system:" + Settings.System.STATUS_BAR_CLOCK_DATE_POSITION;
     public static final String STATUS_BAR_CLOCK_DATE_FORMAT =
             "system:" + Settings.System.STATUS_BAR_CLOCK_DATE_FORMAT;
+    public static final String STATUS_BAR_CLOCK_SIZE =
+            "system:" + Settings.System.STATUS_BAR_CLOCK_SIZE;
+    public static final String QS_HEADER_CLOCK_SIZE =
+            "system:" + Settings.System.QS_HEADER_CLOCK_SIZE;
+
+    private int mClockSize;
+    private int mClockSizeQsHeader;
+    private boolean mQsHeader;
 
     private final CurrentUserTracker mCurrentUserTracker;
     private final CommandQueue mCommandQueue;
@@ -177,6 +186,7 @@ public class Clock extends TextView implements
         bundle.putBoolean(VISIBLE_BY_USER, mClockVisibleByUser);
         bundle.putBoolean(SHOW_SECONDS, mShowSeconds);
         bundle.putInt(VISIBILITY, getVisibility());
+        bundle.putBoolean(QSHEADER, mQsHeader);
 
         return bundle;
     }
@@ -200,6 +210,7 @@ public class Clock extends TextView implements
         if (bundle.containsKey(VISIBILITY)) {
             super.setVisibility(bundle.getInt(VISIBILITY));
         }
+        mQsHeader = bundle.getBoolean(QSHEADER, false);
     }
 
     @Override
@@ -227,7 +238,9 @@ public class Clock extends TextView implements
                     STATUS_BAR_CLOCK_DATE_DISPLAY,
                     STATUS_BAR_CLOCK_DATE_STYLE,
                     STATUS_BAR_CLOCK_DATE_POSITION,
-                    STATUS_BAR_CLOCK_DATE_FORMAT);
+                    STATUS_BAR_CLOCK_DATE_FORMAT,
+                    STATUS_BAR_CLOCK_SIZE,
+                    QS_HEADER_CLOCK_SIZE);
             mCommandQueue.addCallback(this);
             mCurrentUserTracker.startTracking();
             mCurrentUserId = mCurrentUserTracker.getCurrentUserId();
@@ -237,6 +250,7 @@ public class Clock extends TextView implements
         mCalendar = Calendar.getInstance(TimeZone.getDefault());
         mContentDescriptionFormatString = "";
         mDateTimePatternGenerator = null;
+        updateClockSize();
         updateClock();
         updateShowSeconds();
         updateClockVisibility();
@@ -306,6 +320,10 @@ public class Clock extends TextView implements
         }
 
         super.setVisibility(visibility);
+    }
+
+    public void setQsHeader() {
+        mQsHeader = true;
     }
 
     public void setClockVisibleByUser(boolean visible) {
@@ -401,6 +419,16 @@ public class Clock extends TextView implements
                 break;
             case STATUS_BAR_CLOCK_DATE_FORMAT:
                 mClockDateFormat = newValue;
+                break;
+            case STATUS_BAR_CLOCK_SIZE:
+                mClockSize =
+                        TunerService.parseInteger(newValue, 14);
+                updateClockSize();
+                break;
+            case QS_HEADER_CLOCK_SIZE:
+                mClockSizeQsHeader =
+                        TunerService.parseInteger(newValue, 14);
+                updateClockSize();
                 break;
             default:
                 break;
@@ -651,5 +679,12 @@ public class Clock extends TextView implements
             mSecondsHandler.postAtTime(this, SystemClock.uptimeMillis() / 1000 * 1000 + 1000);
         }
     };
-}
 
+    public void updateClockSize() {
+        if(mQsHeader) {
+            setTextSize(mClockSizeQsHeader);
+        } else {
+            setTextSize(mClockSize);
+        }
+    }
+}
