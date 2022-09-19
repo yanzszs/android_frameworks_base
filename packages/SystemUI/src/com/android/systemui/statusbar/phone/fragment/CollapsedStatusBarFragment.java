@@ -561,8 +561,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     private void hideSystemIconArea(boolean animate) {
         animateHide(mSystemIconArea, animate);
-        animateHide(mCustomIconArea, animate);
-        animateHide(mCenterClockLayout, animate);
     }
 
     private void showSystemIconArea(boolean animate) {
@@ -570,8 +568,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         int state = mAnimationScheduler.getAnimationState();
         if (state == IDLE || state == SHOWING_PERSISTENT_DOT) {
             animateShow(mSystemIconArea, animate);
-            animateShow(mCustomIconArea, animate);
-            animateShow(mCenterClockLayout, animate);
         }
     }
 
@@ -608,10 +604,14 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     public void hideNotificationIconArea(boolean animate) {
         animateHide(mNotificationIconAreaInner, animate);
+        animateHide(mCustomIconArea, animate);
+        animateHide(mCenterClockLayout, animate);
     }
 
     public void showNotificationIconArea(boolean animate) {
         animateShow(mNotificationIconAreaInner, animate);
+        animateShow(mCustomIconArea, animate);
+        animateShow(mCenterClockLayout, animate);
     }
 
     public void hideOperatorName(boolean animate) {
