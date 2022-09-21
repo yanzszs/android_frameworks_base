@@ -174,4 +174,7 @@
     
     <!-- Whether device has turbo power charging support -->
     <bool name="config_hasTurboPowerCharger">false</bool>
+    
+    <!-- Whether device has OEM power charging support -->
+    <bool name="config_hasOemCharger">false</bool>
 </resources>
