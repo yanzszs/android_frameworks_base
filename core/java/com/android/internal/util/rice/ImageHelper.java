@@ -325,7 +325,7 @@ public class ImageHelper {
 
     public static Bitmap getBlurredImage(Context context, Bitmap image) {
     	mLSBlurRadius = getLSBlurRadius(context);
-        return getBlurredImage(context, image, mLSBlurRadius / 3);
+        return getBlurredImage(context, image, mLSBlurRadius);
     }
 
     public static Bitmap getBlurredImage(Context context, Bitmap image, float radius) {
@@ -357,7 +357,7 @@ public class ImageHelper {
 
     public static Bitmap getGrayscaleBlurredImage(Context context, Bitmap image) {
     	mLSBlurRadius = getLSBlurRadius(context);
-        return getGrayscaleBlurredImage(context, image, mLSBlurRadius / 3);
+        return getGrayscaleBlurredImage(context, image, mLSBlurRadius);
     }
 
     public static Bitmap getGrayscaleBlurredImage(Context context, Bitmap image, float radius) {
