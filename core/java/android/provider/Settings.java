@@ -5921,6 +5921,12 @@ public final class Settings {
         public static final String ENABLE_RIPPLE_EFFECT = "enable_ripple_effect";
 
         /**
+         * Whether to enable random messages on settings homepage
+         * @hide
+         */
+        public static final String SETTINGS_HOMEPAGE_MESSAGES = "settings_homepage_messages";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
