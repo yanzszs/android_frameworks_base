@@ -128,4 +128,5 @@
 
     <!-- DataSwitch Tile -->
     <string name="qs_data_switch_label">Switch data card</string>
+    <string name="screenrecord_hevc_switch_label">Enable HEVC</string>
 </resources>
