@@ -109,6 +109,12 @@ public class ThemeOverlayController extends CoreStartable implements Dumpable {
     protected static final String TAG = "ThemeOverlayController";
     protected static final String OVERLAY_BERRY_BLACK_THEME =
             "org.lineageos.overlay.customization.blacktheme";
+    protected static final String OVERLAY_VIVID_THEME =
+            "com.android.system.monet.vivid";
+    protected static final String OVERLAY_SD_THEME =
+            "com.android.system.monet.snowpaintdrop";
+    protected static final String OVERLAY_ESPRESSO_THEME =
+            "com.android.system.monet.expresso";
     private static final boolean DEBUG = true;
 
     protected static final int NEUTRAL = 0;
@@ -451,6 +457,27 @@ public class ThemeOverlayController extends CoreStartable implements Dumpable {
                 UserHandle.USER_ALL);
 
         mSystemSettings.registerContentObserverForUser(
+                Settings.System.getUriFor(Settings.System.EXTENDED_MONET_THEMES),
+                false,
+                new ContentObserver(mBgHandler) {
+                    @Override
+                    public void onChange(boolean selfChange, Collection<Uri> collection, int flags,
+                            int userId) {
+                        if (DEBUG) Log.d(TAG, "Overlay changed for user: " + userId);
+                        if (mUserTracker.getUserId() != userId) {
+                            return;
+                        }
+                        if (!mDeviceProvisionedController.isUserSetup(userId)) {
+                            Log.i(TAG, "Theme application deferred when setting changed.");
+                            mDeferredThemeEvaluation = true;
+                            return;
+                        }
+                        reevaluateSystemTheme(true /* forceReload */);
+                    }
+                },
+                UserHandle.USER_ALL);
+                
+        mSystemSettings.registerContentObserverForUser(
                 Settings.System.getUriFor(Settings.System.QS_BATTERY_LOCATION),
                 false,
                 new ContentObserver(mBgHandler) {
@@ -683,9 +710,20 @@ public class ThemeOverlayController extends CoreStartable implements Dumpable {
         boolean isBlackMode = (LineageSettings.System.getIntForUser(
                 mContext.getContentResolver(), LineageSettings.System.BERRY_BLACK_THEME,
                 0, currentUser) == 1) && isNightMode();
+        int isExtendedTheme = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.EXTENDED_MONET_THEMES , 0, currentUser);
         if (categoryToPackage.containsKey(OVERLAY_CATEGORY_SYSTEM_PALETTE) && isBlackMode) {
             OverlayIdentifier blackTheme = new OverlayIdentifier(OVERLAY_BERRY_BLACK_THEME);
             categoryToPackage.put(OVERLAY_CATEGORY_SYSTEM_PALETTE, blackTheme);
+	} else if (categoryToPackage.containsKey(OVERLAY_CATEGORY_SYSTEM_PALETTE) && isExtendedTheme == 1) {
+            OverlayIdentifier vividTheme = new OverlayIdentifier(OVERLAY_VIVID_THEME);
+            categoryToPackage.put(OVERLAY_CATEGORY_SYSTEM_PALETTE, vividTheme);	
+	} else if (categoryToPackage.containsKey(OVERLAY_CATEGORY_SYSTEM_PALETTE) && isExtendedTheme == 2) {
+            OverlayIdentifier sdTheme = new OverlayIdentifier(OVERLAY_SD_THEME);
+            categoryToPackage.put(OVERLAY_CATEGORY_SYSTEM_PALETTE, sdTheme);
+	} else if (categoryToPackage.containsKey(OVERLAY_CATEGORY_SYSTEM_PALETTE) && isExtendedTheme == 3) {
+            OverlayIdentifier espTheme = new OverlayIdentifier(OVERLAY_ESPRESSO_THEME);
+            categoryToPackage.put(OVERLAY_CATEGORY_SYSTEM_PALETTE, espTheme);
         }
 
         Set<UserHandle> managedProfiles = new HashSet<>();
