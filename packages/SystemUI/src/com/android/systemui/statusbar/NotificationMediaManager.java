@@ -681,7 +681,7 @@ public class NotificationMediaManager implements Dumpable, TunerService.Tunable 
 
     private float getLSBlurRadius() {
         mCurrentLSBlurRadius = Settings.System.getFloatForUser(mContext.getContentResolver(),
-                Settings.System.LS_MEDIA_FILTER_BLUR_RADIUS, 1f, UserHandle.USER_CURRENT);
+                Settings.System.LS_MEDIA_FILTER_BLUR_RADIUS, 25f, UserHandle.USER_CURRENT);
         return mCurrentLSBlurRadius;
     }
 

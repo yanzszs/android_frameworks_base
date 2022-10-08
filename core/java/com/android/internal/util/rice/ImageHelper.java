@@ -152,7 +152,7 @@ public class ImageHelper {
 
     private static float getLSBlurRadius(Context context) {
         mCurrentLSBlurRadius = Settings.System.getFloatForUser(context.getContentResolver(),
-                Settings.System.LS_MEDIA_FILTER_BLUR_RADIUS, 1f, UserHandle.USER_CURRENT);
+                Settings.System.LS_MEDIA_FILTER_BLUR_RADIUS, 25f, UserHandle.USER_CURRENT);
         return mCurrentLSBlurRadius;
     }
 
