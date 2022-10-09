@@ -33,6 +33,7 @@ import com.android.systemui.biometrics.AlternateUdfpsTouchProvider;
 import com.android.systemui.biometrics.UdfpsHbmProvider;
 import com.android.systemui.biometrics.dagger.BiometricsModule;
 import com.android.systemui.classifier.FalsingModule;
+import com.android.systemui.controls.controller.ControlsTileResourceConfiguration;
 import com.android.systemui.controls.dagger.ControlsModule;
 import com.android.systemui.dagger.qualifiers.Main;
 import com.android.systemui.demomode.dagger.DemoModeModule;
@@ -92,6 +93,7 @@ import com.android.systemui.wmshell.BubblesManager;
 import com.android.systemui.R;
 import com.android.wm.shell.bubbles.Bubbles;
 import com.android.wm.shell.dagger.DynamicOverride;
+import com.rice.android.systemui.controls.RiceControlsTileResourceConfigurationImpl;
 
 import java.util.Optional;
 import java.util.concurrent.Executor;
@@ -258,6 +260,9 @@ public abstract class SystemUIModule {
                 dumpManager,
                 sysuiMainExecutor));
     }
+    
+    @Binds
+    abstract ControlsTileResourceConfiguration bindControlsTileResourceConfiguration(RiceControlsTileResourceConfigurationImpl configuration);
 
     @BindsOptionalOf
     @DynamicOverride
