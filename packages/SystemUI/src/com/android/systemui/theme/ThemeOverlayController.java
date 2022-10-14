@@ -143,7 +143,7 @@ public class ThemeOverlayController extends CoreStartable implements Dumpable {
     // Dominant color extracted from wallpaper, NOT the color used on the overlay
     protected int mMainWallpaperColor = Color.TRANSPARENT;
     // Theme variant: Vibrant, Tonal, Expressive, etc
-    private Style mThemeStyle = Style.TONAL_SPOT;
+    private Style mThemeStyle = Style.VIVID;
     // Accent colors overlay
     private FabricatedOverlay mSecondaryOverlay;
     // Neutral system colors overlay
@@ -774,7 +774,7 @@ public class ThemeOverlayController extends CoreStartable implements Dumpable {
         // used as a system-wide theme.
         // - Content intentionally excluded, intended for media player, not system-wide
         List<Style> validStyles = Arrays.asList(Style.EXPRESSIVE, Style.SPRITZ, Style.TONAL_SPOT,
-                Style.FRUIT_SALAD, Style.RAINBOW, Style.VIBRANT);
+                Style.FRUIT_SALAD, Style.RAINBOW, Style.VIBRANT, Style.VIVID);
         Style style = mThemeStyle;
         final String overlayPackageJson = mSecureSettings.getStringForUser(
                 Settings.Secure.THEME_CUSTOMIZATION_OVERLAY_PACKAGES,
@@ -785,11 +785,11 @@ public class ThemeOverlayController extends CoreStartable implements Dumpable {
                 style = Style.valueOf(
                         object.getString(ThemeOverlayApplier.OVERLAY_CATEGORY_THEME_STYLE));
                 if (!validStyles.contains(style)) {
-                    style = Style.TONAL_SPOT;
+                    style = Style.VIVID;
                 }
             } catch (JSONException | IllegalArgumentException e) {
                 Log.i(TAG, "Failed to parse THEME_CUSTOMIZATION_OVERLAY_PACKAGES.", e);
-                style = Style.TONAL_SPOT;
+                style = Style.VIVID;
             }
         }
         return style;

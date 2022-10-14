@@ -348,7 +348,7 @@ public class ThemeOverlayControllerTest extends SysuiTestCase {
     public void onSettingChanged_honorThemeStyle() {
         when(mDeviceProvisionedController.isUserSetup(anyInt())).thenReturn(true);
         List<Style> validStyles = Arrays.asList(Style.EXPRESSIVE, Style.SPRITZ, Style.TONAL_SPOT,
-                Style.FRUIT_SALAD, Style.RAINBOW, Style.VIBRANT);
+                Style.FRUIT_SALAD, Style.RAINBOW, Style.VIBRANT, Style.VIVID);
         for (Style style : validStyles) {
             reset(mSecureSettings);
 
@@ -377,7 +377,7 @@ public class ThemeOverlayControllerTest extends SysuiTestCase {
 
         mSettingsObserver.getValue().onChange(true, null, 0, mUserTracker.getUserId());
 
-        assertThat(mCurrentStyle).isEqualTo(Style.TONAL_SPOT);
+        assertThat(mCurrentStyle).isEqualTo(Style.VIVID);
     }
 
     @Test
