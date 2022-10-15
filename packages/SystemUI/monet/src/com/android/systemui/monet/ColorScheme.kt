@@ -167,8 +167,8 @@ enum class Style(internal val coreSpec: CoreSpec) {
             a1 = TonalSpec(HueSource(), ChromaMaxOut()),
             a2 = TonalSpec(HueSource(), ChromaConstant(24.0)),
             a3 = TonalSpec(HueAdd(60.0), ChromaConstant(32.0)),
-            n1 = TonalSpec(HueSource(), ChromaConstant(10.0)),
-            n2 = TonalSpec(HueSource(), ChromaConstant(12.0))
+            n1 = TonalSpec(HueSource(), ChromaConstant(4.0)),
+            n2 = TonalSpec(HueSource(), ChromaConstant(8.0))
     )),
     TONAL_SPOT(CoreSpec(
             a1 = TonalSpec(HueSource(), ChromaConstant(36.0)),
