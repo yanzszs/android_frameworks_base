@@ -131,10 +131,13 @@ public class PixelPropsUtils {
 
     // Codenames for currently supported Pixels by Google
     private static final String[] pixelCodenames = {
+            "cheetah",
+            "panther",
+            "bluejay",
             "oriole",
             "raven",
-            "redfin",
             "barbet",
+            "redfin",
             "bramble",
             "sunfish",
             "coral",
@@ -204,11 +207,12 @@ public class PixelPropsUtils {
                     if (isPixelDevice) return;
                     propsToChange.putAll(propsToChangePixel5);
                 }
+            } else if (isPixelDevice) {
+                return;
             } else if (packageName.equals("com.android.vending")) {
                 sIsFinsky = true;
                 return;
             } else {
-                if (isPixelDevice) return;
                 if (Arrays.asList(packagesToChangePixel7Pro).contains(packageName)) {
                     propsToChange.putAll(propsToChangePixel7Pro);
                 } else if (Arrays.asList(packagesToChangePixelXL).contains(packageName)) {
