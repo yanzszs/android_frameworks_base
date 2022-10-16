@@ -478,14 +478,14 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
     // Should only be accessed on the Handler thread.
     private boolean mOnStateChangedPending;
 
+    // Whether auto brightness is applied one shot when screen is turned on
+    private boolean mAutoBrightnessOneShot;
+
     // Count of proximity messages currently on this DPC's Handler. Used to keep track of how many
     // suspend blocker acquisitions are pending when shutting down this DPC.
     // Should only be accessed on the Handler thread.
     private int mOnProximityPositiveMessages;
     private int mOnProximityNegativeMessages;
-
-    // Whether auto brightness is applied one shot when screen is turned on
-    private boolean mAutoBrightnessOneShot;
 
     // Animators.
     private ObjectAnimator mColorFadeOnAnimator;
