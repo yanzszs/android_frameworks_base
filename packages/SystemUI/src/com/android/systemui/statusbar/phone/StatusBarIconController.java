@@ -273,7 +273,10 @@ public interface StatusBarIconController {
 
         private final boolean mNewIconStyle;
 
-        private boolean mIsOldSignalStyle = false;
+        private boolean mOldStyleType;
+
+        private static final String USE_OLD_MOBILETYPE =
+            "system:" + Settings.System.USE_OLD_MOBILETYPE;
 
         private boolean mShowWifiStandard;
 
@@ -394,7 +397,7 @@ public interface StatusBarIconController {
             StatusBarMobileView view = onCreateStatusBarMobileView(slot);
             view.applyMobileState(state);
             mGroup.addView(view, index, onCreateLayoutParams());
-            view.updateDisplayType(mIsOldSignalStyle);
+            Dependency.get(TunerService.class).addTunable(this, USE_OLD_MOBILETYPE);
 
             if (mIsInDemoMode) {
                 mDemoStatusIcons.addMobileView(state);
@@ -587,22 +590,14 @@ public interface StatusBarIconController {
             return new DemoStatusIcons((LinearLayout) mGroup, mIconSize, mFeatureFlags);
         }
 
-        protected void setMobileSignalStyle(boolean isOldSignalStyle) {
-            mIsOldSignalStyle = isOldSignalStyle;
-        }
-
-        protected void updateMobileIconStyle() {
-            for (int i = 0; i < mGroup.getChildCount(); i++) {
-                final View child = mGroup.getChildAt(i);
-                if (child instanceof StatusBarMobileView) {
-                    ((StatusBarMobileView) child).updateDisplayType(mIsOldSignalStyle);
-                }
-            }
-        }
-
         @Override
         public void onTuningChanged(String key, String newValue) {
             switch (key) {
+                case USE_OLD_MOBILETYPE:
+                    mOldStyleType =
+                        TunerService.parseIntegerSwitch(newValue, false);
+                    updateOldStyleMobileDataIcons();
+                    break;
                 case SHOW_WIFI_STANDARD_ICON:
                     mShowWifiStandard =
                         TunerService.parseIntegerSwitch(newValue, false);
@@ -610,6 +605,15 @@ public interface StatusBarIconController {
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void updateOldStyleMobileDataIcons() {
+            for (int i = 0; i < mGroup.getChildCount(); i++) {
+                View child = mGroup.getChildAt(i);
+                if (child instanceof StatusBarMobileView) {
+                    ((StatusBarMobileView) child).updateDisplayType(mOldStyleType);
+                }
             }
         }
 
