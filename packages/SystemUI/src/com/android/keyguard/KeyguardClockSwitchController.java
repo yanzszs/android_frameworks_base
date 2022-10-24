@@ -120,7 +120,7 @@ public class KeyguardClockSwitchController extends ViewController<KeyguardClockS
 
     private boolean mOnlyClock = false;
     private Executor mUiExecutor;
-    private boolean mCanShowDoubleLineClock = true;
+    private boolean mCanShowDoubleLineClock = false;
     private ContentObserver mDoubleLineClockObserver = new ContentObserver(null) {
         @Override
         public void onChange(boolean change) {
@@ -457,9 +457,7 @@ public class KeyguardClockSwitchController extends ViewController<KeyguardClockS
     }
 
     private void updateDoubleLineClock() {
-        mCanShowDoubleLineClock = mSecureSettings.getIntForUser(
-            Settings.Secure.LOCKSCREEN_USE_DOUBLE_LINE_CLOCK, 1,
-                UserHandle.USER_CURRENT) != 0;
+        mCanShowDoubleLineClock = false;
 
         if (!mCanShowDoubleLineClock) {
             mUiExecutor.execute(() -> displayClock(KeyguardClockSwitch.SMALL, /* animate */ true));
