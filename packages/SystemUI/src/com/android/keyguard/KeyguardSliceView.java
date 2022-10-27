@@ -143,12 +143,8 @@ public class KeyguardSliceView extends LinearLayout {
             mTitle.setVisibility(VISIBLE);
 
             SliceItem mainTitle = header.getTitleItem();
-            CharSequence title = mainTitle.getText();
-            if (mainTitle == null) {
-              mTitle.setText(null);
-            } else {
-              mTitle.setText("~ " + title.substring(0, Math.min(10, title.length())) + "...")
-            }
+            CharSequence title = mainTitle != null ? mainTitle.getText() : null;
+            mTitle.setText(title);
             if (header.getPrimaryAction() != null
                     && header.getPrimaryAction().getAction() != null) {
                 clickActions.put(mTitle, header.getPrimaryAction().getAction());
@@ -160,7 +156,7 @@ public class KeyguardSliceView extends LinearLayout {
         final int startIndex = mHasHeader ? 1 : 0; // First item is header; skip it
         mRow.setVisibility(subItemsCount > 0 ? VISIBLE : GONE);
         LinearLayout.LayoutParams layoutParams = (LayoutParams) mRow.getLayoutParams();
-        layoutParams.gravity = Gravity.CENTER;
+        layoutParams.gravity = Gravity.START;
         mRow.setLayoutParams(layoutParams);
 
         for (int i = startIndex; i < subItemsCount; i++) {
@@ -184,14 +180,7 @@ public class KeyguardSliceView extends LinearLayout {
             clickActions.put(button, pendingIntent);
 
             final SliceItem titleItem = rc.getTitleItem();
-            CharSequence mainTitleItem = titleItem.getText();
-            if (titleItem == null) {
-              button.setText(null);
-            } else {
-              button.setText(mainTitleItem.substring(0, Math.min(10, mainTitleItem.length())) + "...")
-            }
-
-
+            button.setText(titleItem == null ? null : titleItem.getText());
             button.setContentDescription(rc.getContentDescription());
 
             Drawable iconDrawable = null;
@@ -458,7 +447,7 @@ public class KeyguardSliceView extends LinearLayout {
         private void updatePadding() {
             boolean hasText = !TextUtils.isEmpty(getText());
             boolean isDate = Uri.parse(KeyguardSliceProvider.KEYGUARD_DATE_URI).equals(getTag());
-            int padding = (int) mContext.getResources()
+            int padding = (int) getContext().getResources()
                     .getDimension(R.dimen.widget_horizontal_padding) / 2;
             int iconPadding = (int) mContext.getResources()
                     .getDimension(R.dimen.widget_icon_padding);

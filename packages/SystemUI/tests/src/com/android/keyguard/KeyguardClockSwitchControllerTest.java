@@ -261,7 +261,7 @@ public class KeyguardClockSwitchControllerTest extends SysuiTestCase {
 
     @Test
     public void testChangeToDoubleLineClockSetsSmallClock() {
-        when(mSecureSettings.getIntForUser(Settings.Secure.LOCKSCREEN_USE_DOUBLE_LINE_CLOCK, 0,
+        when(mSecureSettings.getIntForUser(Settings.Secure.LOCKSCREEN_USE_DOUBLE_LINE_CLOCK, 1,
                 UserHandle.USER_CURRENT))
                 .thenReturn(0);
         ArgumentCaptor<ContentObserver> observerCaptor =
